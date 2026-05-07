@@ -5,3 +5,13 @@ export async function fetchRandomDrink() {
   const data = await res.json();
   return data.drinks[0];
 }
+
+export async function searchDrinks(query) {
+  const res = await fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`
+  );
+
+  const data = await res.json();
+
+  return data.drinks || [];
+}

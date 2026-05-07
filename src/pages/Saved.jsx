@@ -26,7 +26,8 @@ function Saved() {
 
       <div className="saved-grid">
         {drinks.map((d) => (
-          <div className="card" key={d.id}>
+          <div className="card stats-card" key={d.id}>
+            <img src={d.image} alt={d.name} />
             <h3>{d.name}</h3>
             <p>{d.liked ? "👍 Liked" : "👎 Disliked"}</p>
 

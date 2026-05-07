@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchRandomDrink } from "../api";
+import { fetchRandomDrink, searchDrinks } from "../api";
 import { getIngredients } from "./utils";
 
 function Home() {
@@ -7,6 +7,9 @@ function Home() {
   const [saved, setSaved] = useState(
     JSON.parse(localStorage.getItem("savedDrinks") || "[]")
   );
+
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,6 +23,23 @@ function Home() {
       setDrink(d);
     } catch (e) {
       setError("Failed to load drink");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = async () => {
+    if (!search.trim()) return;
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      const drinks = await searchDrinks(search);
+
+      setResults(drinks);
+    } catch (e) {
+      setError("Search failed");
     } finally {
       setLoading(false);
     }
@@ -47,6 +67,16 @@ function Home() {
         <h1>🍸 Drink Explorer</h1>
         <p>Discover cocktails from a free public API</p>
 
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search cocktail by name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+
         <button className="primary-btn" onClick={loadDrink}>
           Get random drink
         </button>
@@ -70,6 +100,22 @@ function Home() {
       {!loading && !drink && !error && (
         <div className="card">
           <p>Click the button to discover a cocktail 🍸</p>
+        </div>
+      )}
+
+      {/* SEARCH RESULTS */}
+      {results.length > 0 && (
+        <div className="results-grid">
+          {results.map((d) => (
+            <div
+              key={d.idDrink}
+              className="card result-card"
+              onClick={() => setDrink(d)}
+            >
+              <img src={d.strDrinkThumb} alt={d.strDrink} />
+              <h3>{d.strDrink}</h3>
+            </div>
+          ))}
         </div>
       )}
 
