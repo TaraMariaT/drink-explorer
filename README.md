@@ -1,16 +1,49 @@
-# React + Vite
+# 🍸 Drink Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Drink Explorer is a simple web application that allows users to discover cocktails using a public API, view ingredients and instructions, and save drinks they like or dislike.
 
-Currently, two official plugins are available:
+The project is built with **React + Vite** and demonstrates modern frontend development concepts such as API usage, routing, state management, and local storage.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🌐 Live demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+👉 https://69fbdb672cfb5938c1280c82--tangerine-cranachan-cbbdab.netlify.app/
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+- 🎲 Random cocktail generator (API-based)
+- 📋 Detailed drink view (name, image, instructions, ingredients)
+- 👍 Like / 👎 Dislike system
+- 💾 Save drinks using localStorage
+- 🗑️ Remove saved drinks
+- 📱 Responsive UI
+
+---
+
+## Technology used
+
+- React
+- Vite
+- React Router
+- JavaScript (ES6+)
+- CSS
+- LocalStorage API
+- Public API:
+  - TheCocktailDB: https://www.thecocktaildb.com/api.php
+
+---
+
+## Notes
+
+- No API keys are required
+- All data comes from a public API
+- No backend is used (fully frontend-based application)
+
+---
+
+## Purpose
+
+This project was created as part of a web development course at Oulu University of Applied Sciences to practice frontend development, API usage and basic CI/CD workflows.
