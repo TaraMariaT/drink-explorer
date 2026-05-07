@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { fetchRandomDrink, searchDrinks } from "../api";
 import { getIngredients } from "./utils";
 
@@ -13,6 +13,10 @@ function Home() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [message, setMessage] = useState("");
+
+  const drinkRef = useRef(null);
 
   const loadDrink = async () => {
     try {
@@ -48,6 +52,14 @@ function Home() {
   const addToList = (liked) => {
     if (!drink) return;
 
+    const alreadySaved = saved.some((d) => d.id === drink.idDrink);
+
+    if (alreadySaved) {
+      setMessage("⚠️ This drink is already saved!");
+      setTimeout(() => setMessage(""), 2000);
+      return;
+    }
+
     const entry = {
       id: drink.idDrink,
       name: drink.strDrink,
@@ -58,6 +70,9 @@ function Home() {
     const updated = [...saved, entry];
     setSaved(updated);
     localStorage.setItem("savedDrinks", JSON.stringify(updated));
+
+    setMessage(liked ? "✅ Saved as liked!" : "❌ Saved as disliked!");
+    setTimeout(() => setMessage(""), 2000);
   };
 
   return (
@@ -81,6 +96,13 @@ function Home() {
           Get random drink
         </button>
       </div>
+
+      {/* FEEDBACK */}
+      {message && (
+        <div className="card feedback">
+          <p>{message}</p>
+        </div>
+      )}
 
       {/* ERROR */}
       {error && (
@@ -110,7 +132,13 @@ function Home() {
             <div
               key={d.idDrink}
               className="card result-card"
-              onClick={() => setDrink(d)}
+              onClick={() => {
+                setDrink(d);
+
+                setTimeout(() => {
+                  drinkRef.current?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}
             >
               <img src={d.strDrinkThumb} alt={d.strDrink} />
               <h3>{d.strDrink}</h3>
@@ -121,7 +149,7 @@ function Home() {
 
       {/* DRINK CARD */}
       {drink && !loading && (
-        <div className="card drink-card">
+        <div ref={drinkRef} className="card drink-card">
           <div className="drink-content">
             <img src={drink.strDrinkThumb} alt={drink.strDrink} />
 
