@@ -8,7 +8,7 @@ The project is built with **React + Vite** and demonstrates modern frontend deve
 
 ## 🌐 Live demo
 
-👉 https://69fbdb672cfb5938c1280c82--tangerine-cranachan-cbbdab.netlify.app/
+👉 https://tangerine-cranachan-cbbdab.netlify.app/
 
 ---
 
